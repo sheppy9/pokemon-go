@@ -36,7 +36,7 @@ function generate_table (dataUrl, tableSelector = '#tableDefault') {
 				data: jsond,
 				columns: cols,
 				pageLength: 10,
-				stateSave: false
+				stateSave: true
 			};
 
 			let table = $(tableSelector).DataTable(tableOptions);
