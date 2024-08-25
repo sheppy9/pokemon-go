@@ -40,8 +40,9 @@ function generate_table (dataUrl, tableSelector = '#tableDefault') {
 			};
 
 			let table = $(tableSelector).DataTable(tableOptions);
-			$(table.table().container()).on('keyup', 'tfoot input', () => {
-				table.column($(this).data('index')).search(this.value).draw();
+			$(table.table().container()).on('keyup', 'tfoot input', (e) => {
+				let elem = e.currentTarget;
+				table.column($(elem).data('index')).search(elem.value).draw();
 			});
 		});
 }
