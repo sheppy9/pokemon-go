@@ -1,4 +1,4 @@
-fast_name,fast_type,fast_power,fast_energy,fast_power_per_energy,charged_name,charged_type,charged_power,charged_energy,charged_power_per_energy,charged_rate
+Fast Name,Fast Type,Fast Power,Fast Energy,Fast Power Per Energy,Charged Name,Charged Type,Charged Power,Charged Energy,Charged Power Per Energy,Charged Rate
 Feint Attack,Dark,10,9,1.1111111111111112,Leech Life,Bug,0,0,,0.0
 Bubble,Water,12,14,0.8571428571428571,Leech Life,Bug,0,0,,0.0
 Psycho Cut,Psychic,5,8,0.625,Crush Claw,Normal,0,0,,0.0
