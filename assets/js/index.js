@@ -24,13 +24,8 @@ function generate_table (dataUrl, tableSelector = '#tableDefault') {
 			}
 
 			let cols = [];
-			Object.entries(jsond[0]).forEach(([k, v], i) => {
-				let autofocus = i == 0 ? 'autofocus' : '';
-				let searchHeader = `<th><input type="text" class="col-12" placeholder="${k}" data-index="${i}" ${autofocus}/></th>`;
-
-				cols.push({ data: k, title: k });
-				$(`${tableSelector} tfoot tr`).append(searchHeader);
-			});
+			$(`${tableSelector} thead`).append('<tr></tr>');
+			Object.entries(jsond[0]).forEach(([k, v], i) => cols.push({ data: k, title: k }));
 
 			let tableOptions = {
 				data: jsond,
@@ -40,7 +35,12 @@ function generate_table (dataUrl, tableSelector = '#tableDefault') {
 			};
 
 			let table = $(tableSelector).DataTable(tableOptions);
-			$(table.table().container()).on('keyup', 'tfoot input', (e) => {
+			cols.forEach((col, i) => {
+				let autofocus = i == 0 ? 'autofocus' : '';
+				table.column(i).title(`<input type="text" class="col-12" placeholder="${col.title}" data-index="${i}" ${autofocus}/>`)
+			});
+
+			$(table.table().container()).on('keyup', 'thead input', (e) => {
 				let elem = e.currentTarget;
 				table.column($(elem).data('index')).search(elem.value).draw();
 			});
