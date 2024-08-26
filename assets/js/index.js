@@ -6,9 +6,13 @@
 // Download method: Minify, Concetenate
 
 $(function () {
-	$("#typeDdl").val('pvp_moves');
-	typeChanged($("#typeDdl"));
+	fetchOptions();
 });
+
+function initDefaultSelectOption () {
+	$("#typeDdl").val($("#typeDdl option:nth-child(2)").val());
+	typeChanged($("#typeDdl"));
+}
 
 function typeChanged (elem) {
 	let selected = $(elem).val();
@@ -16,10 +20,29 @@ function typeChanged (elem) {
 		return;
 	}
 
-	generate_table(`https://raw.githubusercontent.com/kaiying1991/pokemon-go/master/data/json/${selected}.json`)
+	generateTable(`https://raw.githubusercontent.com/kaiying1991/pokemon-go/master/data/json/${selected}`);
 }
 
-function generate_table (dataUrl, tableSelector = '#tableDefault') {
+function fetchOptions () {
+	fetch('https://api.github.com/repos/kaiying1991/pokemon-go/contents/data/json')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok ' + response.statusText);
+			}
+			return response.json();
+		})
+		.then(data => {
+			data.forEach((d, i) => {
+				let name = d.name;
+				let dname = name.split('.')[0].split('_').map(_ => _.replace(/^./, _[0].toUpperCase())).join(' ');
+				$("#typeDdl").append(`<option value="${name}">${dname}</option>`);
+			});
+
+			initDefaultSelectOption();
+		});
+}
+
+function generateTable (dataUrl, tableSelector = '#tableDefault') {
 	fetch(dataUrl)
 		.then(response => {
 			if (!response.ok) {
@@ -56,7 +79,7 @@ function generate_table (dataUrl, tableSelector = '#tableDefault') {
 			var table = $(tableSelector).DataTable(tableOptions);
 			cols.forEach((col, i) => {
 				let autofocus = i == 0 ? 'autofocus' : '';
-				table.column(i).title(`<input type="text" class="col-12" placeholder="${col.title}" data-index="${i}" ${autofocus}/>`)
+				table.column(i).title(`<input type="text" class="col-12" placeholder="${col.title}" data-index="${i}" ${autofocus}/>`);
 			});
 
 			$(table.table().container()).on('keyup', 'thead input', (e) => {
