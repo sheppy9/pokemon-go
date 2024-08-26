@@ -49,6 +49,7 @@ function generate_table (dataUrl, tableSelector = '#tableDefault') {
 				autoWidth: true,
 				searching: true,
 				processing: true,
+				responsive: true,
 				deferRender: true,
 			};
 
