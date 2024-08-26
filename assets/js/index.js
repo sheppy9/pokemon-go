@@ -6,8 +6,18 @@
 // Download method: Minify, Concetenate
 
 $(function () {
-	generate_table('https://raw.githubusercontent.com/kaiying1991/pokemon-go/master/data/json/pvp_moves.json');
+	$("#typeDdl").val('pvp_moves');
+	typeChanged($("#typeDdl"));
 });
+
+function typeChanged (elem) {
+	let selected = $(elem).val();
+	if (selected.length == 0) {
+		return;
+	}
+
+	generate_table(`https://raw.githubusercontent.com/kaiying1991/pokemon-go/master/data/json/${selected}.json`)
+}
 
 function generate_table (dataUrl, tableSelector = '#tableDefault') {
 	fetch(dataUrl)
@@ -23,18 +33,26 @@ function generate_table (dataUrl, tableSelector = '#tableDefault') {
 				return;
 			}
 
+			table?.destroy();
+			$(tableSelector).empty();
+
 			let cols = [];
 			$(`${tableSelector} thead`).append('<tr></tr>');
 			Object.entries(jsond[0]).forEach(([k, v], i) => cols.push({ data: k, title: k }));
 
 			let tableOptions = {
 				data: jsond,
+				destroy: true,
 				columns: cols,
 				pageLength: 10,
-				stateSave: true
+				stateSave: true,
+				autoWidth: true,
+				searching: true,
+				processing: true,
+				deferRender: true,
 			};
 
-			let table = $(tableSelector).DataTable(tableOptions);
+			var table = $(tableSelector).DataTable(tableOptions);
 			cols.forEach((col, i) => {
 				let autofocus = i == 0 ? 'autofocus' : '';
 				table.column(i).title(`<input type="text" class="col-12" placeholder="${col.title}" data-index="${i}" ${autofocus}/>`)
