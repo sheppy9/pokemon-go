@@ -20,11 +20,11 @@ function typeChanged (elem) {
 		return;
 	}
 
-	generateTable(`https://raw.githubusercontent.com/kaiying1991/pokemon-go/master/data/json/${selected}`);
+	generateTable(`https://raw.githubusercontent.com/sheppy9/pokemon-go/master/data/json/${selected}`);
 }
 
 function fetchOptions () {
-	fetch('https://api.github.com/repos/kaiying1991/pokemon-go/contents/data/json')
+	fetch('https://api.github.com/repos/sheppy9/pokemon-go/contents/data/json')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok ' + response.statusText);
