@@ -1,3 +1,5 @@
+import ray
+import json
 import requests
 import pandas as pd
 
@@ -19,6 +21,7 @@ def get_pokemons():
 	data_df.to_json(f'{data_root}/pokemons.json', orient='records', indent=4)
 	return data_df
 
+@ray.remote
 def get_pokemon_data(gamepass_pokemon_id):
 	url = f'https://pokemongo.gamepress.gg/c/pokemon/{gamepass_pokemon_id}'
 
@@ -34,6 +37,7 @@ def get_pokemon_data(gamepass_pokemon_id):
 	soup = BeautifulSoup(res.text)
 
 	data = {
+		'id': gamepass_pokemon_id,
 		'evolutions': [],
 		'fast_moves': [],
 		'charge_moves': [],
@@ -87,10 +91,18 @@ def get_pokemon_data(gamepass_pokemon_id):
 							'type': span_pair[0].text,
 							'value': span_pair[1].text
 						})
+
+		with open(f'{data_root}/{gamepass_pokemon_id}.json', 'w') as json_file:
+			json.dump(data, json_file, indent=4)
+
 	except Exception as e:
 		print(f'{gamepass_pokemon_id}: {e}')
 
 	return data
 
 pokemons = get_pokemons()
-pokemons['data'] = pokemons.apply(lambda x: get_pokemon_data(x['id']), axis=1)
+display(pokemons)
+
+pokemon_ids = pokemons['id'].to_list()
+results = ray.get([get_pokemon_data.remote(pokemon_id) for pokemon_id in pokemon_ids])
+print(f'Completed, found {len(results)} data')

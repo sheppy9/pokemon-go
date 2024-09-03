@@ -3,3 +3,4 @@ pandas==2.2.2
 requests==2.32.3
 ipykernel==6.29.5
 beautifulsoup4==4.12.3
+ray==2.35.0
