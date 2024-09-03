@@ -14,15 +14,28 @@ Path(data_root).mkdir(parents=True, exist_ok=True)
 gamepress_root = 'https://pokemongo.gamepress.gg'
 
 def get_pokemons():
+	pokemon_filename = Path(f'{data_root}/pokemons.json')
+	if pokemon_filename.exists():
+		print('Loading pokemon from file')
+		return pd.read_json(pokemon_filename)
+
 	params = { '_data': '_custom/routes/_site.c.pokemon+/_index' }
 	res = requests.get(f'{gamepress_root}/c/pokemon?{urlencode(params)}', headers=headers)
 
 	data_df = pd.DataFrame(res.json()['list']['listData']['docs'])
-	data_df.to_json(f'{data_root}/pokemons.json', orient='records', indent=4)
+	data_df.to_json(pokemon_filename, orient='records', indent=4)
 	return data_df
 
 @ray.remote
 def get_pokemon_data(gamepass_pokemon_id):
+	json_filename = Path(f'{data_root}/{gamepass_pokemon_id}.json')
+	if json_filename.exists():
+		print(f'Loading pokemon data from file')
+		json_file = open(json_filename)
+		data = json.load(json_file)
+		json_file.close()
+		return data
+
 	url = f'https://pokemongo.gamepress.gg/c/pokemon/{gamepass_pokemon_id}'
 
 	headers = {
@@ -92,7 +105,7 @@ def get_pokemon_data(gamepass_pokemon_id):
 							'value': span_pair[1].text
 						})
 
-		with open(f'{data_root}/{gamepass_pokemon_id}.json', 'w') as json_file:
+		with open(json_filename, 'w') as json_file:
 			json.dump(data, json_file, indent=4)
 
 	except Exception as e:
