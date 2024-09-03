@@ -101,8 +101,6 @@ def get_pokemon_data(gamepass_pokemon_id):
 	return data
 
 pokemons = get_pokemons()
-display(pokemons)
-
 pokemon_ids = pokemons['id'].to_list()
 results = ray.get([get_pokemon_data.remote(pokemon_id) for pokemon_id in pokemon_ids])
 print(f'Completed, found {len(results)} data')
