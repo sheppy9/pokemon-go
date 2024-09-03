@@ -41,52 +41,56 @@ def get_pokemon_data(gamepass_pokemon_id):
 		'resistances': []
 	}
 
-	evolutions = soup.select('#family>div>div')
-	for evolution in evolutions:
-		data['evolutions'].append({
-			'name': evolution.select_one('a>div:nth-child(1)>div>span').text,
-			'url': evolution.select('a')[0]['href']
-		})
-
-	moves = soup.select('#moves:nth-child(1)>div')
-	if len(moves) == 2:
-		for move in moves[0]:
-			cd_info, dps_info, eps_info = move.find_all('div')[3].find_all('button')
-			data['fast_moves'].append({
-				'name': move.select_one('div:nth-child(2)').text,
-				'url': move.select_one('a')['href'],
-				'cool_down': float(cd_info.text.replace('CD', '')),
-				'damage_per_second': float(dps_info.text.replace('DPS', '')),
-				'energy_per_second': float(eps_info.text.replace('EPS', '')),
-				'power': int(move.find_all('button')[4].text)
+	try:
+		evolutions = soup.select('#family>div>div')
+		for evolution in evolutions:
+			data['evolutions'].append({
+				'name': evolution.select_one('a>div:nth-child(1)>div>span').text,
+				'url': evolution.select('a')[0]['href']
 			})
 
-		for move in moves[1]:
-			test = move.find_all('button')[1:5]
-			cd_info, dps_info, dpe_info, dw_info = move.find_all('button')[1:5]
-			data['charge_moves'].append({
-				'name': move.select_one('div:nth-child(2)').text,
-				'url': move.select_one('a')['href'],
-				'cool_down': float(cd_info.text.replace('CD', '')),
-				'damage_per_second': float(dps_info.text.replace('DPS', '')),
-				'damage_per_energy': float(dpe_info.text.replace('DPE', '')),
-				'dodge_window': float(dw_info.text.replace('DW', '')),
-				'power': int(move.find_all('div')[-1].text)
-			})
+		moves = soup.select('#moves:nth-child(1)>div')
+		if len(moves) == 2:
+			for move in moves[0]:
+				cd_info, dps_info, eps_info = move.find_all('div')[3].find_all('button')
+				data['fast_moves'].append({
+					'name': move.select_one('div:nth-child(2)').text,
+					'url': move.select_one('a')['href'],
+					'cool_down': float(cd_info.text.replace('CD', '')),
+					'damage_per_second': float(dps_info.text.replace('DPS', '')),
+					'energy_per_second': float(eps_info.text.replace('EPS', '')),
+					'power': int(move.find_all('button')[4].text)
+				})
 
-	tables = soup.find('div', { 'id': 'type-chart' }).find_all('table')
-	if len(tables) == 2:
-		types = ['weaknesses', 'resistances']
+			for move in moves[1]:
+				test = move.find_all('button')[1:5]
+				cd_info, dps_info, dpe_info, dw_info = move.find_all('button')[1:5]
+				data['charge_moves'].append({
+					'name': move.select_one('div:nth-child(2)').text,
+					'url': move.select_one('a')['href'],
+					'cool_down': float(cd_info.text.replace('CD', '')),
+					'damage_per_second': float(dps_info.text.replace('DPS', '')),
+					'damage_per_energy': float(dpe_info.text.replace('DPE', '')),
+					'dodge_window': float(dw_info.text.replace('DW', '')),
+					'power': int(move.find_all('div')[-1].text)
+				})
 
-		for i, typee in enumerate(types):
-			for entry in tables[i].find_all('td'):
-				span_pair = entry.find_all('span')
-				if len(span_pair) == 2:
-					data[typee].append({
-						'type': span_pair[0].text,
-						'value': span_pair[1].text
-					})
+		tables = soup.find('div', { 'id': 'type-chart' }).find_all('table')
+		if len(tables) == 2:
+			types = ['weaknesses', 'resistances']
+
+			for i, typee in enumerate(types):
+				for entry in tables[i].find_all('td'):
+					span_pair = entry.find_all('span')
+					if len(span_pair) == 2:
+						data[typee].append({
+							'type': span_pair[0].text,
+							'value': span_pair[1].text
+						})
+	except Exception as e:
+		print(f'{gamepass_pokemon_id}: {e}')
 
 	return data
 
-get_pokemons()
+pokemons = get_pokemons()
+pokemons['data'] = pokemons.apply(lambda x: get_pokemon_data(x['id']), axis=1)
