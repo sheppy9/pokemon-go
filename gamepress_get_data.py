@@ -50,7 +50,9 @@ def get_pokemon_data(gamepass_pokemon_id):
 	soup = BeautifulSoup(res.text)
 
 	data = {
-		'id': gamepass_pokemon_id,
+		'id': soup.select_one('#main>div>section>div>div>div>span:nth-child(2)').text,
+    	'name': soup.find('h1').text,
+		'gamepass_pokemon_id': gamepass_pokemon_id,
 		'evolutions': [],
 		'fast_moves': [],
 		'charge_moves': [],
