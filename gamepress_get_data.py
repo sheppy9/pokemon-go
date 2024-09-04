@@ -60,6 +60,26 @@ def get_pokemon_data(gamepass_pokemon_id):
 		'resistances': []
 	}
 
+	pokemon_stats = soup.select_one('#main>div>section').find_all('div')[6].select('div')
+	attack, defense, stamina = pokemon_stats[1].text, pokemon_stats[4].text, pokemon_stats[7].text
+
+	try:
+		attack = int(attack)
+	except ValueError:
+		pass
+	try:
+		defense = int(defense)
+	except ValueError:
+		pass
+	try:
+		stamina = int(stamina)
+	except ValueError:
+		pass
+
+	data['attack'] = attack
+	data['defense'] = defense
+	data['stamina'] = stamina
+
 	try:
 		evolutions = soup.select('#family>div>div')
 		for evolution in evolutions:
