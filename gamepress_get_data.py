@@ -53,6 +53,7 @@ def get_pokemon_data(gamepass_pokemon_id):
 		'id': soup.select_one('#main>div>section>div>div>div>span:nth-child(2)').text,
     	'name': soup.find('h1').text,
 		'gamepass_pokemon_id': gamepass_pokemon_id,
+		'types': sorted([_['alt'] for _ in soup.select_one('#main').find_all('img', src=lambda src: 'pokemon_type' in src.lower())]),
 		'evolutions': [],
 		'fast_moves': [],
 		'charge_moves': [],
@@ -79,6 +80,13 @@ def get_pokemon_data(gamepass_pokemon_id):
 	data['attack'] = attack
 	data['defense'] = defense
 	data['stamina'] = stamina
+
+	max_cp = soup.select_one('#main>div>section:nth-child(2)>div>div>div:nth-child(2)').text
+	try:
+		max_cp = int(max_cp)
+	except ValueError:
+		pass
+	data['max_cp'] = max_cp
 
 	try:
 		evolutions = soup.select('#family>div>div')
