@@ -28,7 +28,10 @@ def get_pokemons():
 
 @ray.remote
 def get_pokemon_data(gamepass_pokemon_id):
-	json_filename = Path(f'{data_root}/pokemon/{gamepass_pokemon_id}.json')
+	pokemon_dir = Path(f'{data_root}/pokemon/')
+	pokemon_dir.mkdir(parents=True, exist_ok=True)
+	json_filename = pokemon_dir / f'{gamepass_pokemon_id}.json'
+	
 	if json_filename.exists():
 		print(f'Loading pokemon data from file')
 		json_file = open(json_filename)
