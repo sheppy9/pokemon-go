@@ -10,9 +10,9 @@ csv_data = []
 for file in glob(f'{pokemon_root}/*.json'):
 	data = json.load(open(file))
 	csv_data.append({
-		'name': data['id'],
-		'weaknesses': ', '.join(sorted([_['type'] for _ in data['weaknesses']])),
-		'resistances': ', '.join(sorted([_['type'] for _ in data['resistances']])),
+		'Name': data['id'],
+		'Weaknesses': ', '.join(sorted([_['type'] for _ in data['weaknesses']])),
+		'Resistances': ', '.join(sorted([_['type'] for _ in data['resistances']])),
 	})
 
 df = pd.DataFrame(csv_data)
