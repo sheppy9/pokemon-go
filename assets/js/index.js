@@ -12,7 +12,7 @@ $(function () {
 });
 
 function initDefaultSelectOption () {
-	$("#typeDdl").val($("#typeDdl option:nth-child(2)").val());
+	$("#typeDdl").val($("#typeDdl option:nth-child(3)").val());
 	typeChanged($("#typeDdl"));
 }
 
