@@ -10,7 +10,6 @@ csv_data = []
 for file in glob(f'{pokemon_root}/*.json'):
 	data = json.load(open(file))
 	csv_data.append({
-		'ID': data['id'],
 		'Name': data['name'],
 		'Types': ', '.join(sorted(data['types'])),
 		'Evolution': ', '.join([_['name'] for _ in data['evolutions']]),
