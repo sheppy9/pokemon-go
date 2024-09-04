@@ -16,4 +16,4 @@ for file in glob(f'{pokemon_root}/*.json'):
 	})
 
 df = pd.DataFrame(csv_data)
-df.to_csv(f'{data_root}/csv/pokemon.csv', index=False)
+df.to_json(f'{data_root}/json/pokemon.json', orient='records')
