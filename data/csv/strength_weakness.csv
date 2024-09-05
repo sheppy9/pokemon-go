@@ -1,0 +1,19 @@
+Type,Strong Against,Weakness,Strong count,Weak count,Strong > Weak
+Fighting,"Dark, Ice, Normal, Rock, Steel","Fairy, Flying, Psychic",5,3,Yes
+Ground,"Electric, Fire, Poison, Rock, Steel","Grass, Ice, Water",5,3,Yes
+Fire,"Bug, Grass, Ice, Steel","Ground, Rock, Water",4,3,Yes
+Ice,"Dragon, Flying, Grass, Ground","Fighting, Fire, Rock, Steel",4,4,No
+Rock,"Bug, Fire, Flying, Ice","Fighting, Grass, Ground, Steel, Water",4,5,No
+Bug,"Grass, Dark, Psychic","Fire, Flying, Rock",3,3,No
+Fairy,"Fighting, Dark, Dragon","Poison, Steel",3,2,Yes
+Flying,"Bug, Fighting, Grass","Electric, Ice, Rock",3,3,No
+Grass,"Ground, Rock, Water","Bug, Fire, Flying, Ice, Poison",3,5,No
+Steel,"Fairy, Ice, Rock","Fighting, Fire, Ground",3,3,No
+Water,"Fire, Ground, Rock","Electric, Grass",3,2,Yes
+Dark,"Ghost, Psychic","Bug, Fairy, Fighting",2,3,No
+Electric,"Flying, Water",Ground,2,1,Yes
+Ghost,"Ghost, Psychic","Dark, Ghost",2,2,No
+Poison,"Fairy, Grass","Ground, Psychic",2,2,No
+Psychic,"Fighting, Poison","Bug, Dark, Ghost",2,3,No
+Dragon,Dragon,"Dragon, Fairy, Ice",1,3,No
+Normal,--,Fighting,1,1,No
