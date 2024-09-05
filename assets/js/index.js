@@ -5,12 +5,14 @@
 // Extensions: DateTime, Responsive, SearchBuilder, SearchPanes, StateRestore
 // Download method: Minify, Concetenate
 
+var table = null;
+
 $(function () {
 	fetchOptions();
 });
 
 function initDefaultSelectOption () {
-	$("#typeDdl").val($("#typeDdl option:nth-child(2)").val());
+	$("#typeDdl").val($("#typeDdl option:nth-child(3)").val());
 	typeChanged($("#typeDdl"));
 }
 
@@ -56,12 +58,8 @@ function generateTable (dataUrl, tableSelector = '#tableDefault') {
 				return;
 			}
 
-			table?.destroy();
-			$(tableSelector).empty();
-
 			let cols = [];
-			$(`${tableSelector} thead`).append('<tr></tr>');
-			Object.entries(jsond[0]).forEach(([k, v], i) => cols.push({ data: k, title: k }));
+			Object.entries(jsond[0]).forEach(([k, v], i) => cols.push({ 'data': k, 'title': k }));
 
 			let tableOptions = {
 				data: jsond,
@@ -76,7 +74,10 @@ function generateTable (dataUrl, tableSelector = '#tableDefault') {
 				deferRender: true,
 			};
 
-			var table = $(tableSelector).DataTable(tableOptions);
+			table?.destroy();
+			$(`${tableSelector} thead`).empty();
+			$(`${tableSelector} tbody`).empty();
+			table = $(tableSelector).DataTable(tableOptions);
 			cols.forEach((col, i) => {
 				let autofocus = i == 0 ? 'autofocus' : '';
 				table.column(i).title(`<input type="text" class="col-12" placeholder="${col.title}" data-index="${i}" ${autofocus}/>`);
