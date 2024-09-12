@@ -1,5 +1,7 @@
+import json
 import http.client
 
+from pathlib import Path
 from bs4 import BeautifulSoup
 
 def pokemonhub_get_pokemons(region):
@@ -51,3 +53,9 @@ for region in regions:
 	pokemons = parse_pokemon_html(html_data)
 	full_pokemons.extend(pokemons)
 print(f'Number of pokemons: {len(full_pokemons)}')
+
+
+pokemongohub_root = 'data/pokemongohub'
+Path(pokemongohub_root).mkdir(parents=True, exist_ok=True)
+with open(f'{pokemongohub_root}/pokemons.json', 'w+') as file:
+	json.dump(full_pokemons, file, indent=4)
