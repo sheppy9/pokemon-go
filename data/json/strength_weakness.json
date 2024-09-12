@@ -1,0 +1,146 @@
+[
+    {
+        "Type": "Fighting",
+        "Strong Against": "Dark, Ice, Normal, Rock, Steel",
+        "Weakness": "Fairy, Flying, Psychic",
+        "Strong count": "5",
+        "Weak count": "3",
+        "Strong > Weak": "Yes"
+    },
+    {
+        "Type": "Ground",
+        "Strong Against": "Electric, Fire, Poison, Rock, Steel",
+        "Weakness": "Grass, Ice, Water",
+        "Strong count": "5",
+        "Weak count": "3",
+        "Strong > Weak": "Yes"
+    },
+    {
+        "Type": "Fire",
+        "Strong Against": "Bug, Grass, Ice, Steel",
+        "Weakness": "Ground, Rock, Water",
+        "Strong count": "4",
+        "Weak count": "3",
+        "Strong > Weak": "Yes"
+    },
+    {
+        "Type": "Ice",
+        "Strong Against": "Dragon, Flying, Grass, Ground",
+        "Weakness": "Fighting, Fire, Rock, Steel",
+        "Strong count": "4",
+        "Weak count": "4",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Rock",
+        "Strong Against": "Bug, Fire, Flying, Ice",
+        "Weakness": "Fighting, Grass, Ground, Steel, Water",
+        "Strong count": "4",
+        "Weak count": "5",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Bug",
+        "Strong Against": "Dark, Grass, Psychic",
+        "Weakness": "Fire, Flying, Rock",
+        "Strong count": "3",
+        "Weak count": "3",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Fairy",
+        "Strong Against": "Dark, Dragon, Fighting",
+        "Weakness": "Poison, Steel",
+        "Strong count": "3",
+        "Weak count": "2",
+        "Strong > Weak": "Yes"
+    },
+    {
+        "Type": "Flying",
+        "Strong Against": "Bug, Fighting, Grass",
+        "Weakness": "Electric, Ice, Rock",
+        "Strong count": "3",
+        "Weak count": "3",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Grass",
+        "Strong Against": "Ground, Rock, Water",
+        "Weakness": "Bug, Fire, Flying, Ice, Poison",
+        "Strong count": "3",
+        "Weak count": "5",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Steel",
+        "Strong Against": "Fairy, Ice, Rock",
+        "Weakness": "Fighting, Fire, Ground",
+        "Strong count": "3",
+        "Weak count": "3",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Water",
+        "Strong Against": "Fire, Ground, Rock",
+        "Weakness": "Electric, Grass",
+        "Strong count": "3",
+        "Weak count": "2",
+        "Strong > Weak": "Yes"
+    },
+    {
+        "Type": "Dark",
+        "Strong Against": "Ghost, Psychic",
+        "Weakness": "Bug, Fairy, Fighting",
+        "Strong count": "2",
+        "Weak count": "3",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Electric",
+        "Strong Against": "Flying, Water",
+        "Weakness": "Ground",
+        "Strong count": "2",
+        "Weak count": "1",
+        "Strong > Weak": "Yes"
+    },
+    {
+        "Type": "Ghost",
+        "Strong Against": "Ghost, Psychic",
+        "Weakness": "Dark, Ghost",
+        "Strong count": "2",
+        "Weak count": "2",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Poison",
+        "Strong Against": "Fairy, Grass",
+        "Weakness": "Ground, Psychic",
+        "Strong count": "2",
+        "Weak count": "2",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Psychic",
+        "Strong Against": "Fighting, Poison",
+        "Weakness": "Bug, Dark, Ghost",
+        "Strong count": "2",
+        "Weak count": "3",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Dragon",
+        "Strong Against": "Dragon",
+        "Weakness": "Dragon, Fairy, Ice",
+        "Strong count": "1",
+        "Weak count": "3",
+        "Strong > Weak": "No"
+    },
+    {
+        "Type": "Normal",
+        "Strong Against": "--",
+        "Weakness": "Fighting",
+        "Strong count": "1",
+        "Weak count": "1",
+        "Strong > Weak": "No"
+    }
+]
