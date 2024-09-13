@@ -19,7 +19,8 @@ pokemons_df['backup_charge_move'] = pokemons_df['undeprecated_moves'].apply(lamb
 pokemons_df['backup_dps'] = pokemons_df['undeprecated_moves'].apply(lambda x: x.get('dps') if x is not None else None)
 pokemons_df['backup_tdo'] = pokemons_df['undeprecated_moves'].apply(lambda x: x.get('tdo') if x is not None else None)
 pokemons_df['backup_score'] = pokemons_df['undeprecated_moves'].apply(lambda x: x.get('score') if x is not None else None)
+pokemons_df['backup_best_move'] = pokemons_df['backup_fast_move'] + ', ' + pokemons_df['backup_charge_move']
 
-pokemons_df = pokemons_df[['name', 'type', 'score', 'max_cp', 'attack', 'defense', 'weaknesses', 'resistances', 'best_move', 'dps', 'tdo', 'backup_fast_move', 'backup_charge_move', 'backup_dps', 'backup_tdo', 'backup_score']]
+pokemons_df = pokemons_df[['name', 'type', 'weaknesses', 'resistances', 'max_cp', 'score', 'backup_score', 'best_move', 'backup_best_move']]
 
 pokemons_df.to_json(f'{data_root}/json/individual_pokemon.json', orient='records')
