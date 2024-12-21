@@ -24,6 +24,7 @@ def get_pvpoke_pokemons():
 		# prepend
 		'(standard) (shadow)': { 'prepend': 'shadow-', 'postpend': '' },
 		'(alolan) (shadow)': { 'prepend': 'shadow-alolan-', 'postpend': '' },
+		# '(galarian) (shadow)': { 'prepend': 'shadow-galarian-', 'postpend': '' },
 
 		'(shadow)': { 'prepend': 'shadow-', 'postpend': '' },
 		'(galarian)': { 'prepend': 'galarian-', 'postpend': '' },
@@ -75,21 +76,19 @@ def get_pvpoke_pokemons():
 
 	for i, pokemon in enumerate(csv.DictReader(open('data/csv/pvpoke_master_league.csv'))):
 		pokemon['rank'] = i + 1
-
+		
 		name = pokemon['Pokemon'].lower()
-
 		if '(' in name:
-			replace_word = name[name.index('('): name.index(')') + 1].strip()
-
-			if ') (' in name:
-				print(name, '#', replace_word)
-
+			replace_word = name[name.find('('): name.rfind(')') + 1].strip()
 			if replace_word in keyword_replacements:
 				removed_word = name.replace(replace_word, '').strip()
 				replacements = keyword_replacements[replace_word]
 				name = replacements['prepend'] + removed_word + replacements['postpend']
 
 		pokemons[name] = pokemon
+
+		if '(' in name:
+			print(name)
 
 	return pokemons
 
