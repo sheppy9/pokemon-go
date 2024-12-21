@@ -7,7 +7,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from urllib.parse import urlencode
 
-data_root = 'data/gamepress'
+data_root = 'data/gamepress/pokemons'
 
 headers = { 'User-Agent': 'Mozilla/5.0' }
 Path(data_root).mkdir(parents=True, exist_ok=True)
