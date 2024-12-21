@@ -123,7 +123,7 @@ def generate_interested_data(pokemons):
 			# 'Stamina': pokemon.get('Stamina'),
 			'Fast Moves': pokemon.get('joined_fast_moves'),
 			'Charge Moves': pokemon.get('joined_charge_moves'),
-			'CP': pokemon.get('CP'),
+			# 'CP': pokemon.get('CP'),
 		})
 	return data
 
