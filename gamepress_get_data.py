@@ -7,14 +7,12 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from urllib.parse import urlencode
 
-data_root = 'data/gamepress/pokemons'
-
 headers = { 'User-Agent': 'Mozilla/5.0' }
-Path(data_root).mkdir(parents=True, exist_ok=True)
+Path('data/gamepress/pokemons').mkdir(parents=True, exist_ok=True)
 gamepress_root = 'https://pokemongo.gamepress.gg'
 
 def get_pokemons():
-	pokemon_filename = Path(f'{data_root}/pokemons.json')
+	pokemon_filename = Path(f'data/gamepress/pokemons.json')
 	if pokemon_filename.exists():
 		print('Loading pokemon from file')
 		return pd.read_json(pokemon_filename)
@@ -28,7 +26,7 @@ def get_pokemons():
 
 @ray.remote
 def get_pokemon_data(gamepass_pokemon_id):
-	pokemon_dir = Path(f'{data_root}/pokemon/')
+	pokemon_dir = Path(f'data/gamepress/pokemons/')
 	pokemon_dir.mkdir(parents=True, exist_ok=True)
 	json_filename = pokemon_dir / f'{gamepass_pokemon_id}.json'
 	
