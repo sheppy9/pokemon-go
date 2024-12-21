@@ -6,13 +6,14 @@
 // Download method: Minify, Concetenate
 
 var table = null;
+let defaultJson = 'pokemon';
 
 $(function () {
 	fetchOptions();
 });
 
 function initDefaultSelectOption () {
-	$("#typeDdl").val($("#typeDdl option:nth-child(3)").val());
+	$("#typeDdl").val(`${defaultJson}.json`);
 	typeChanged($("#typeDdl"));
 }
 
