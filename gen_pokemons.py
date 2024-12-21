@@ -8,12 +8,18 @@ def get_gamepress_pokemons():
 	pokemons = {}
 	for jfile in glob(f'data/gamepress/pokemons/*.json'):
 		pokemon = json.loads(open(jfile).read())
+		name = pokemon.get('name')
+
 		pokemon['joined_evolutions'] = ', '.join([_['name'] for _ in pokemon['evolutions']])
 		pokemon['joined_weaknesses'] = ', '.join([_['type'] for _ in pokemon['weaknesses']])
 		pokemon['joined_resistances'] = ', '.join([_['type'] for _ in pokemon['resistances']])
 		pokemon['joined_fast_moves'] = ', '.join([_['name'] for _ in pokemon['fast_moves']])
 		pokemon['joined_charge_moves'] = ', '.join([_['name'] for _ in pokemon['charge_moves']])
-		pokemons[pokemon['id'].lower()] = pokemon
+
+		if name is not None:
+			pokemons[name.lower()] = pokemon
+		else:
+			pokemons[pokemon['id'].lower()] = pokemon
 	return pokemons
 
 def get_pvpoke_pokemons():
