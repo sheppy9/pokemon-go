@@ -19,9 +19,78 @@ def get_gamepress_pokemons():
 def get_pvpoke_pokemons():
 	# Downloaded CSV from https://pvpoke.com/rankings/all/10000/overall/
 	pokemons = {}
+
+	keyword_replacements = {
+		# prepend
+		'(standard) (shadow)': { 'prepend': 'shadow-', 'postpend': '' },
+		'(alolan) (shadow)': { 'prepend': 'shadow-alolan-', 'postpend': '' },
+
+		'(shadow)': { 'prepend': 'shadow-', 'postpend': '' },
+		'(galarian)': { 'prepend': 'galarian-', 'postpend': '' },
+		'(alolan)': { 'prepend': 'alolan-', 'postpend': '' },
+		'(dawn wings)': { 'prepend': 'dawn-', 'postpend': '' },
+		'(dusk mane)': { 'prepend': 'dusk-', 'postpend': '' },
+		'(hisuian)': { 'prepend': 'hisuian-', 'postpend': '' },
+		'(standard)': { 'prepend': 'standard-', 'postpend': '' },
+		'(ordinary)': { 'prepend': 'ordinary-', 'postpend': '' },
+		'(armored)': { 'prepend': 'armored-', 'postpend': '' },
+
+		# postpend
+		'(origin)': { 'prepend': '', 'postpend': '-origin-forme' },
+		'(10% forme)': { 'prepend': '', 'postpend': '-10-forme' },
+		'(50% forme)': { 'prepend': '', 'postpend': '-50-forme' },
+		"(pa'u)": { 'prepend': '', 'postpend': '-pa-039-u-style' },
+		'(defense)': { 'prepend': '', 'postpend': '-defense-forme' },
+		'(speed)': { 'prepend': '', 'postpend': '-speed-forme' },
+		'(incarnate)': { 'prepend': '', 'postpend': '-incarnate-forme' },
+		'(burn)': { 'prepend': '', 'postpend': '-burn-drive' },
+		'(chill)': { 'prepend': '', 'postpend': '-chill-drive' },
+		'(douse)': { 'prepend': '', 'postpend': '-douse-drive' },
+		'(shock)': { 'prepend': '', 'postpend': '-shock-drive' },
+		'(altered)': { 'prepend': '', 'postpend': '-altered-forme' },
+		'(average)': { 'prepend': '', 'postpend': '-average-size' },
+		'(large)': { 'prepend': '', 'postpend': '-large-size' },
+		'(small)': { 'prepend': '', 'postpend': '-small-size' },
+		'(super)': { 'prepend': '', 'postpend': '-super-size' },
+		'(unbound)': { 'prepend': '', 'postpend': '-unbound' },
+		'(therian)': { 'prepend': '', 'postpend': '-therian-forme' },
+		'(dusk)': { 'prepend': '', 'postpend': '-dusk-form' },
+		'(midday)': { 'prepend': '', 'postpend': '-midday-form' },
+		'(midnight)': { 'prepend': '', 'postpend': '-midnight-form' },
+		'(aria)': { 'prepend': '', 'postpend': '-aria-forme' },
+		'(female)': { 'prepend': '', 'postpend': '-female' },
+		'(male)': { 'prepend': '', 'postpend': '-male' },
+		'(baile)': { 'prepend': '', 'postpend': '-baile-style' },
+		'(pom-pom)': { 'prepend': '', 'postpend': '-pom-pom-style' },
+		'(sensu)': { 'prepend': '', 'postpend': '-sensu-style' },
+		'(frost)': { 'prepend': '', 'postpend': '-frost' },
+		'(heat)': { 'prepend': '', 'postpend': '-heat' },
+		'(mow)': { 'prepend': '', 'postpend': '-mow' },
+		'(wash)': { 'prepend': '', 'postpend': '-wash' },
+		'(land)': { 'prepend': '', 'postpend': '-land-forme' },
+		'(sky)': { 'prepend': '', 'postpend': '-sky-forme' },
+		'(hero)': { 'prepend': '', 'postpend': '-hero-of-many-battles' },
+		'(complete forme)': { 'prepend': '', 'postpend': '-complete-forme' },
+	}
+
 	for i, pokemon in enumerate(csv.DictReader(open('data/csv/pvpoke_master_league.csv'))):
 		pokemon['rank'] = i + 1
-		pokemons[pokemon['Pokemon'].lower()] = pokemon
+
+		name = pokemon['Pokemon'].lower()
+
+		if '(' in name:
+			replace_word = name[name.index('('): name.index(')') + 1].strip()
+
+			if ') (' in name:
+				print(name, '#', replace_word)
+
+			if replace_word in keyword_replacements:
+				removed_word = name.replace(replace_word, '').strip()
+				replacements = keyword_replacements[replace_word]
+				name = replacements['prepend'] + removed_word + replacements['postpend']
+
+		pokemons[name] = pokemon
+
 	return pokemons
 
 def joined_data(dict_1, dict_2):
