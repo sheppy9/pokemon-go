@@ -93,9 +93,6 @@ def get_pvpoke_pokemons():
 
 		pokemons[name] = pokemon
 
-		if '(' in name:
-			print(name)
-
 	return pokemons
 
 def joined_data(dict_1, dict_2):
@@ -112,9 +109,11 @@ def joined_data(dict_1, dict_2):
 def generate_interested_data(pokemons):
 	data = []
 	for name, pokemon in pokemons.items():
+		display_name = ' '.join([_.capitalize() for _ in name.split('-')])
+
 		data.append({
 			'Rank': pokemon.get('rank'),
-			'Name': name,
+			'Name': display_name,
 			# 'Types': pokemon.get('types'),
 			'Evolutions': pokemon.get('joined_evolutions'),
 			'Weaknesses': pokemon.get('joined_weaknesses'),
