@@ -73,6 +73,12 @@ function generateTable (dataUrl, tableSelector = '#tableDefault') {
 				processing: true,
 				responsive: true,
 				deferRender: true,
+				layout: {
+					topStart: 'search',
+					topEnd: 'pageLength',
+					bottomStart: 'paging',
+					bottomEnd: 'info'
+				}
 			};
 
 			table?.destroy();
