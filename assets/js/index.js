@@ -79,14 +79,14 @@ function generateTable (dataUrl, tableSelector = '#tableDefault') {
 			$(`${tableSelector} thead`).empty();
 			$(`${tableSelector} tbody`).empty();
 			table = $(tableSelector).DataTable(tableOptions);
-			cols.forEach((col, i) => {
-				let autofocus = i == 0 ? 'autofocus' : '';
-				table.column(i).title(`<input type="text" class="col-12" placeholder="${col.title}" data-index="${i}" ${autofocus}/>`);
-			});
-
-			$(table.table().container()).on('keyup', 'thead input', (e) => {
-				let elem = e.currentTarget;
-				table.column($(elem).data('index')).search(elem.value).draw();
-			});
+// 			cols.forEach((col, i) => {
+// 				let autofocus = i == 0 ? 'autofocus' : '';
+// 				table.column(i).title(`<input type="text" class="col-12" placeholder="${col.title}" data-index="${i}" ${autofocus}/>`);
+// 			});
+// 
+// 			$(table.table().container()).on('keyup', 'thead input', (e) => {
+// 				let elem = e.currentTarget;
+// 				table.column($(elem).data('index')).search(elem.value).draw();
+// 			});
 		});
 }
