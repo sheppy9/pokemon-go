@@ -1,19 +1,14 @@
-import os
 import json
 import requests
-import pandas as pd
 
 from pathlib import Path
-from bs4 import BeautifulSoup
 from datetime import datetime
 from urllib.parse import urlencode
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 
 headers = { 'User-Agent': 'Mozilla/5.0' }
 Path('data/gamepress/pokemons').mkdir(parents=True, exist_ok=True)
 gamepress_root = 'https://pokemongo.gamepress.gg'
-
-os.environ["RAY_DEDUP_LOGS"] = "0"
 
 def get_pokemons():
 	pokemon_filename = Path(f'data/gamepress/pokemons.json')
