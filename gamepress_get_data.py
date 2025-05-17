@@ -7,8 +7,8 @@ from urllib.parse import urlencode
 from concurrent.futures import ThreadPoolExecutor
 
 headers = { 'User-Agent': 'Mozilla/5.0' }
-Path('data/gamepress/pokemons').mkdir(parents=True, exist_ok=True)
 gamepress_root = 'https://pokemongo.gamepress.gg'
+Path('data/gamepress/pokemons').mkdir(parents=True, exist_ok=True)
 
 def get_pokemons():
 	pokemon_filename = Path(f'data/gamepress/pokemons.json')
